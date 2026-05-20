@@ -1,27 +1,41 @@
 import time
 import os
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def format_time(seconds):
+    mins = seconds // 60
+    secs = seconds % 60
+    return f"{mins:02d}:{secs:02d}"
+
 def timer():
-    os.system('cls')
-    print("=" * 40)
+    clear_screen()
+    print("=" * 50)
     print("       КОНСОЛЬНЫЙ ТАЙМЕР")
-    print("=" * 40)
+    print("=" * 50)
     
-    seconds = int(input("Введите секунды: "))
-    
-    while seconds > 0:
-        os.system('cls')
-        print("=" * 40)
-        print(f"       ОСТАЛОСЬ: {seconds} сек")
-        print("=" * 40)
-        time.sleep(1)
-        seconds -= 1
-    
-    os.system('cls')
-    print("=" * 40)
-    print("        ⏰ ВРЕМЯ ВЫШЛО! ⏰")
-    print("=" * 40)
-    input("\nНажмите Enter для выхода...")
+    try:
+        seconds = int(input("\nВведите секунды: "))
+        
+        while seconds > 0:
+            clear_screen()
+            print("=" * 50)
+            print(f"       ОСТАЛОСЬ: {format_time(seconds)}")
+            print("=" * 50)
+            time.sleep(1)
+            seconds -= 1
+        
+        clear_screen()
+        print("=" * 50)
+        print("         ⏰ ВРЕМЯ ВЫШЛО! ⏰")
+        print("=" * 50)
+        print('\a')  # Звук
+        input("\nНажмите Enter для выхода...")
+        
+    except ValueError:
+        print("Ошибка! Введите число!")
+        input("Нажмите Enter...")
 
 if __name__ == "__main__":
     timer()
